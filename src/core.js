@@ -16,13 +16,15 @@ Onion.coreMiddlewares = coreMiddlewares;
 Onion.defaultCoreMiddlewaresLength = coreMiddlewares.length;
 
 class Core {
+
+  // 构造 一个 请求对象
   constructor(initOptions) {
-    this.onion = new Onion([]);
+    this.onion = new Onion([]);  // 洋葱模型 中间件仓库
     this.fetchIndex = 0; // 【即将废弃】请求中间件位置
-    this.mapCache = new MapCache(initOptions);
-    this.initOptions = initOptions;
-    this.instanceRequestInterceptors = [];
-    this.instanceResponseInterceptors = [];
+    this.mapCache = new MapCache(initOptions); // 缓存
+    this.initOptions = initOptions; // 初始化配置
+    this.instanceRequestInterceptors = [];  // 实例拦截器
+    this.instanceResponseInterceptors = []; // 实例拦截器
   }
   // 旧版拦截器为共享
   static requestInterceptors = [addfixInterceptor];

@@ -7,12 +7,17 @@ import { getParamObject, mergeRequestOptions } from './utils';
 
 // 通过 request 函数，在 core 之上再封装一层，提供原 umi/request 一致的 api，无缝升级
 const request = (initOptions = {}) => {
+  // 洋葱模型
   const coreInstance = new Core(initOptions);
+  // instance
+// 实例话
   const umiInstance = (url, options = {}) => {
     const mergeOptions = mergeRequestOptions(coreInstance.initOptions, options);
     return coreInstance.request(url, mergeOptions);
   };
 
+  //  static
+  
   // 中间件
   umiInstance.use = coreInstance.use.bind(coreInstance);
   umiInstance.fetchIndex = coreInstance.fetchIndex;
@@ -32,7 +37,7 @@ const request = (initOptions = {}) => {
   METHODS.forEach(method => {
     umiInstance[method] = (url, options) => umiInstance(url, { ...options, method });
   });
-
+  // 请求取消
   umiInstance.Cancel = Cancel;
   umiInstance.CancelToken = CancelToken;
   umiInstance.isCancel = isCancel;
